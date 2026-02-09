@@ -1,5 +1,6 @@
 import { AuthProvider } from "@/context/AuthContext";
 import Navbar from "@/components/Navbar";
+import SmoothScroll from "@/components/SmoothScroll";
 import "./globals.css";
 
 export default function RootLayout({ children }) {
@@ -7,8 +8,10 @@ export default function RootLayout({ children }) {
     <html lang="en" data-theme="dark">
       <body>
         <AuthProvider>
-          <Navbar />
-          {children}
+          <SmoothScroll>
+            <Navbar />
+            {children}
+          </SmoothScroll>
         </AuthProvider>
       </body>
     </html>
