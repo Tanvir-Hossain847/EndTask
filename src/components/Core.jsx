@@ -8,8 +8,10 @@ import {
   HiOutlineLockClosed,
 } from "react-icons/hi";
 import { LuFingerprint, LuDatabase, LuKey, LuWorkflow } from "react-icons/lu";
+import { useAuth } from "@/context/AuthContext";
 
 export default function Core() {
+  const { user } = useAuth();
   const steps = [
     {
       title: "Identity Layer",
@@ -52,12 +54,34 @@ export default function Core() {
               rigid transitions from <b>DRAFT</b> to <b>COMPLETED</b>.
             </p>
             <div className="flex gap-4 justify-center">
-              <Link href="/auth/register" className="btn btn-primary px-8">
-                Get Started
-              </Link>
-              <Link href="/projects/browse" className="btn btn-outline px-8">
-                Browse Work
-              </Link>
+              {!user ? (
+                <>
+                  <Link href="/auth/register" className="btn btn-primary px-8">
+                    Get Started
+                  </Link>
+                  <Link href="/projects/browse" className="btn btn-outline px-8">
+                    Browse Work
+                  </Link>
+                </>
+              ) : user.role === "BUYER" ? (
+                <>
+                  <Link href="/projects/create" className="btn btn-primary px-8">
+                    Post a Project
+                  </Link>
+                  <Link href="/projects/my-listings" className="btn btn-outline px-8">
+                    My Projects
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <Link href="/projects/browse" className="btn btn-primary px-8">
+                    Browse Projects
+                  </Link>
+                  <Link href="/solver/my-tasks" className="btn btn-outline px-8">
+                    My Tasks
+                  </Link>
+                </>
+              )}
             </div>
           </div>
         </div>

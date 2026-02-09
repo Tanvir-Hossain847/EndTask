@@ -19,7 +19,6 @@ export default function Navbar() {
     if (!user) {
       return (
         <li>
-          <Link href="/auth/login">Login</Link>
         </li>
       );
     }
