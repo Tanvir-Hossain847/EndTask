@@ -1,5 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import ProtectedRoute from "@/components/ProtectedRoute";
 import { useAuth } from "@/context/AuthContext";
 import { useParams, useRouter } from "next/navigation";
@@ -30,7 +31,7 @@ export default function MyTasksPage() {
       if (tasksRes.ok) setTasks(await tasksRes.json());
       if (projectsRes.ok) {
         const allProjects = await projectsRes.json();
-        setProjects(allProjects.filter(p => p.assignedSolverId === user.uid));
+        setProjects(allProjects.filter(p => p.assignedSolverId === user.uid && p.status !== 'COMPLETED'));
       }
     } catch (error) {
       console.error("Failed to fetch data:", error);
@@ -145,10 +146,21 @@ export default function MyTasksPage() {
               
               {/* Projects View */}
               {activeTab === 'projects' && (
-                <div className="space-y-3">
+                <motion.div 
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: 20 }}
+                  className="space-y-3"
+                >
                   {projects.length === 0 && <p className="text-sm text-white/40 text-center py-8">No active projects assigned.</p>}
                   {projects.map(p => (
-                    <div key={p._id} className="bg-base-100 border border-white/5 rounded-lg p-4 flex justify-between items-center group hover:border-white/10 transition-colors">
+                    <motion.div 
+                      layout
+                      initial={{ opacity: 0, y: 20 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      key={p._id} 
+                      className="bg-base-100 border border-white/5 rounded-lg p-4 flex justify-between items-center group hover:border-white/10 transition-colors"
+                    >
                       <div>
                         <div className="flex items-center gap-2 mb-1">
                           <h3 className="text-sm font-medium text-white group-hover:text-primary transition-colors">{p.title}</h3>
@@ -159,20 +171,33 @@ export default function MyTasksPage() {
                       <Link href={`/projects/${p._id}`} className="btn btn-sm btn-ghost border border-white/5">
                         Manage
                       </Link>
-                    </div>
+                    </motion.div>
                   ))}
                   <div className="text-center mt-4">
                      <Link href="/projects/browse" className="btn btn-primary btn-sm btn-outline">Find More Work</Link>
                   </div>
-                </div>
+                </motion.div>
               )}
 
               {/* Backlog / Todo Tasks View */}
               {activeTab === 'todo' && (
-                <div className="space-y-3">
+                <motion.div 
+                   initial={{ opacity: 0, x: -20 }}
+                   animate={{ opacity: 1, x: 0 }}
+                   exit={{ opacity: 0, x: 20 }}
+                   className="space-y-3"
+                >
                   {todoTasks.length === 0 && <p className="text-sm text-white/40 text-center py-8">No tasks in backlog. Check your projects or create tasks.</p>}
+                  <AnimatePresence>
                   {todoTasks.map((task) => (
-                    <div key={task._id} className="bg-base-100 border border-white/5 rounded-lg p-4 hover:border-white/10 transition-colors">
+                    <motion.div 
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      key={task._id} 
+                      className="bg-base-100 border border-white/5 rounded-lg p-4 hover:border-white/10 transition-colors"
+                    >
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="text-sm font-medium">{task.title}</h3>
@@ -200,17 +225,31 @@ export default function MyTasksPage() {
                           </button>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                  </AnimatePresence>
+                </motion.div>
               )}
 
               {/* Active Tasks View */}
               {activeTab === 'active' && (
-                <div className="space-y-3">
+                <motion.div 
+                   initial={{ opacity: 0, x: -20 }}
+                   animate={{ opacity: 1, x: 0 }}
+                   exit={{ opacity: 0, x: 20 }}
+                   className="space-y-3"
+                >
                   {activeTasks.length === 0 && <p className="text-sm text-white/40 text-center py-8">No active tasks being worked on.</p>}
+                  <AnimatePresence>
                   {activeTasks.map((task) => (
-                    <div key={task._id} className="bg-base-100 border border-primary/20 rounded-lg p-4 shadow-sm shadow-primary/5">
+                    <motion.div 
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      exit={{ opacity: 0, scale: 0.95 }}
+                      key={task._id} 
+                      className="bg-base-100 border border-primary/20 rounded-lg p-4 shadow-sm shadow-primary/5"
+                    >
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="text-sm font-medium">{task.title}</h3>
@@ -235,17 +274,31 @@ export default function MyTasksPage() {
                           </Link>
                         </div>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                  </AnimatePresence>
+                </motion.div>
               )}
 
                {/* Completed Tasks View */}
                {activeTab === 'completed' && (
-                <div className="space-y-3">
+                <motion.div 
+                   initial={{ opacity: 0, x: -20 }}
+                   animate={{ opacity: 1, x: 0 }}
+                   exit={{ opacity: 0, x: 20 }}
+                   className="space-y-3"
+                >
                   {completedTasks.length === 0 && <p className="text-sm text-white/40 text-center py-8">No completed tasks yet.</p>}
+                  <AnimatePresence>
                   {completedTasks.map((task) => (
-                    <div key={task._id} className="bg-base-100 border border-white/5 rounded-lg p-4 opacity-75 grayscale hover:grayscale-0 transition-all">
+                    <motion.div 
+                      layout
+                      initial={{ opacity: 0, scale: 0.95 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      key={task._id} 
+                      className="bg-base-100 border border-white/5 rounded-lg p-4 opacity-75 grayscale hover:grayscale-0 transition-all"
+                    >
+
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <h3 className="text-sm font-medium line-through decoration-white/30">{task.title}</h3>
@@ -262,9 +315,10 @@ export default function MyTasksPage() {
                             View
                           </Link>
                       </div>
-                    </div>
+                    </motion.div>
                   ))}
-                </div>
+                  </AnimatePresence>
+                </motion.div>
               )}
 
             </div>

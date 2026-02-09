@@ -78,24 +78,32 @@ export default function Navbar() {
         {user ? (
           <div className="flex items-center gap-4">
             {user.role === 'SOLVER' && (
-              <div className="hidden md:flex flex-col items-end mr-2">
-                <span className="text-xs text-white/50 uppercase tracking-wider">Balance</span>
-                <span className="text-sm font-bold text-primary">${user.balance?.toLocaleString() || '0'}</span>
-              </div>
+               <div className="flex flex-col items-end mr-2">
+                  <span className="text-xs text-white/40 uppercase tracking-widest text-[10px]">Balance</span>
+                  <span className="text-sm font-medium text-primary font-mono">${user.balance?.toLocaleString() || 0}</span>
+               </div>
             )}
+            
             <div className="dropdown dropdown-end">
-              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar placeholder">
-                <div className="bg-neutral text-neutral-content rounded-full w-10 border-2 border-primary/20">
-                  <span>{(user.name || user.email)?.charAt(0).toUpperCase()}</span>
+                <div tabIndex={0} role="button" className="flex items-center gap-2 pl-4 border-l border-white/10 cursor-pointer hover:bg-white/5 p-1 rounded-lg transition-colors">
+                  <div className="text-right hidden sm:block">
+                    <p className="text-sm font-medium leading-none">{user.name || user.email.split("@")[0]}</p>
+                    <p className={`text-[10px] uppercase tracking-wide mt-1 ${user.role === 'SOLVER' ? 'text-primary' : 'text-secondary'}`}>
+                      {user.role}
+                    </p>
+                  </div>
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center text-sm font-bold border ${user.role === 'SOLVER' ? 'bg-primary/10 border-primary text-primary' : 'bg-secondary/10 border-secondary text-secondary'}`}>
+                    {user.email[0].toUpperCase()}
+                  </div>
                 </div>
-              </div>
-              <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
-                <li className="menu-title text-xs opacity-50 uppercase tracking-widest">{user.role}</li>
-                <div className="divider my-0 opacity-20"></div>
-                <li><Link href="/dashboard">Dashboard</Link></li>
-                <li><Link href="/profile">Profile Settings</Link></li>
-                <li><button onClick={handleLogout} className="text-error font-semibold">Logout</button></li>
-              </ul>
+                <ul tabIndex={0} className="dropdown-content z-[1] menu p-2 shadow-2xl bg-base-100 rounded-box w-52 border border-white/10 mt-4">
+                    <li className="menu-title opacity-50 text-[10px] tracking-widest uppercase">{user.role} Account</li>
+                    <div className="divider my-0 opacity-10"></div>
+                    <li><Link href="/dashboard">Dashboard</Link></li>
+                    <li><Link href="/profile">Profile Settings</Link></li>
+                    <div className="divider my-0 opacity-10"></div>
+                    <li><button onClick={handleLogout} className="text-error">Sign Out</button></li>
+                </ul>
             </div>
           </div>
         ) : (

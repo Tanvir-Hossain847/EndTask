@@ -13,7 +13,9 @@ import {
   HiOutlineX,
   HiOutlinePlus,
   HiOutlineDownload,
+
 } from "react-icons/hi";
+import ProjectTimeline from "@/components/ProjectTimeline";
 
 export default function ProjectDetailPage() {
   const { id } = useParams();
@@ -173,10 +175,14 @@ export default function ProjectDetailPage() {
             {getStatusBadge(project.status)}
           </div>
 
+
+
           {/* Details */}
           <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-4">
             <p className="text-xs text-white/60 leading-relaxed">{project.description}</p>
           </div>
+
+          <ProjectTimeline status={project.status} />
 
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="bg-base-100 border border-white/5 rounded-lg p-3">
