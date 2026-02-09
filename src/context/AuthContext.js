@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext, useEffect, useState, useCallback } from "react";
-import { auth, db } from "@/lib/firebase";
+import { auth } from "@/lib/firebase";
 import {
   onAuthStateChanged,
   signInWithEmailAndPassword,
@@ -10,7 +10,6 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { doc, getDoc, setDoc } from "firebase/firestore";
 
 const AuthContext = createContext({});
 
@@ -19,39 +18,78 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
+  // Fetch user data from MongoDB API
+  const fetchUserData = async (firebaseUser) => {
+    try {
+      const response = await fetch(`/api/users?uid=${firebaseUser.uid}`);
+      if (response.ok) {
+        const userData = await response.json();
+        return {
+          uid: firebaseUser.uid,
+          email: firebaseUser.email,
+          ...userData,
+        };
+      }
+      // User not found in DB - return basic data
+      return {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        role: "SOLVER",
+      };
+    } catch (err) {
+      console.error("Failed to fetch user data:", err);
+      return {
+        uid: firebaseUser.uid,
+        email: firebaseUser.email,
+        role: "SOLVER",
+      };
+    }
+  };
+
+  // Save user data to MongoDB API
+  const saveUserData = async (uid, email, role = "SOLVER") => {
+    try {
+      const response = await fetch("/api/users", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ uid, email, role }),
+      });
+      return response.ok;
+    } catch (err) {
+      console.error("Failed to save user data:", err);
+      return false;
+    }
+  };
+
+  // Update user profile
+  const updateProfile = useCallback(async (profileData) => {
+    if (!user?.uid) return { success: false, error: "Not logged in" };
+
+    try {
+      const response = await fetch(`/api/users/${user.uid}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(profileData),
+      });
+
+      if (response.ok) {
+        const updatedUser = await response.json();
+        setUser((prev) => ({ ...prev, ...updatedUser }));
+        return { success: true };
+      }
+      return { success: false, error: "Failed to update profile" };
+    } catch (err) {
+      return { success: false, error: err.message };
+    }
+  }, [user]);
+
   // Listen for auth state changes
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       try {
         if (firebaseUser) {
-          // Try to fetch user data from Firestore
-          try {
-            const docRef = doc(db, "users", firebaseUser.uid);
-            const docSnap = await getDoc(docRef);
-
-            if (docSnap.exists()) {
-              setUser({
-                uid: firebaseUser.uid,
-                email: firebaseUser.email,
-                ...docSnap.data(),
-              });
-            } else {
-              // No Firestore doc yet - use basic auth data
-              setUser({ 
-                uid: firebaseUser.uid, 
-                email: firebaseUser.email,
-                role: "SOLVER" // Default role
-              });
-            }
-          } catch (firestoreError) {
-            // Firestore failed (offline/permissions) - still allow login with basic data
-            console.warn("Firestore unavailable, using basic auth data:", firestoreError.message);
-            setUser({ 
-              uid: firebaseUser.uid, 
-              email: firebaseUser.email,
-              role: "SOLVER" // Default role when offline
-            });
-          }
+          const userData = await fetchUserData(firebaseUser);
+          setUser(userData);
         } else {
           setUser(null);
         }
@@ -85,17 +123,8 @@ export const AuthProvider = ({ children }) => {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const newUser = userCredential.user;
 
-      // Try to save to Firestore (but don't block registration if it fails)
-      try {
-        await setDoc(doc(db, "users", newUser.uid), {
-          email: email,
-          role: role,
-          createdAt: new Date().toISOString(),
-        });
-      } catch (firestoreError) {
-        console.warn("Could not save user to Firestore:", firestoreError.message);
-        // Registration still succeeds - user is created in Firebase Auth
-      }
+      // Save to MongoDB
+      await saveUserData(newUser.uid, email, role);
 
       return { success: true };
     } catch (err) {
@@ -112,21 +141,10 @@ export const AuthProvider = ({ children }) => {
       const result = await signInWithPopup(auth, provider);
       const googleUser = result.user;
 
-      // Try to check/create Firestore doc (but don't block login if it fails)
-      try {
-        const docRef = doc(db, "users", googleUser.uid);
-        const docSnap = await getDoc(docRef);
-
-        if (!docSnap.exists()) {
-          await setDoc(docRef, {
-            email: googleUser.email,
-            role: "SOLVER",
-            createdAt: new Date().toISOString(),
-          });
-        }
-      } catch (firestoreError) {
-        console.warn("Firestore unavailable during Google login:", firestoreError.message);
-        // Login still succeeds - user is authenticated
+      // Check if user exists, if not create them
+      const existingUser = await fetch(`/api/users?uid=${googleUser.uid}`);
+      if (existingUser.status === 404) {
+        await saveUserData(googleUser.uid, googleUser.email, "SOLVER");
       }
 
       return { success: true };
@@ -156,6 +174,7 @@ export const AuthProvider = ({ children }) => {
     register,
     googleLogin,
     logout,
+    updateProfile,
   };
 
   return (

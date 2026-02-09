@@ -76,18 +76,27 @@ export default function Navbar() {
 
       <div className="navbar-end gap-2">
         {user ? (
-          <div className="dropdown dropdown-end">
-            <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar placeholder">
-              <div className="bg-neutral text-neutral-content rounded-full w-10 border-2 border-primary/20">
-                <span>{(user.name || user.email)?.charAt(0).toUpperCase()}</span>
+          <div className="flex items-center gap-4">
+            {user.role === 'SOLVER' && (
+              <div className="hidden md:flex flex-col items-end mr-2">
+                <span className="text-xs text-white/50 uppercase tracking-wider">Balance</span>
+                <span className="text-sm font-bold text-primary">${user.balance?.toLocaleString() || '0'}</span>
               </div>
+            )}
+            <div className="dropdown dropdown-end">
+              <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar placeholder">
+                <div className="bg-neutral text-neutral-content rounded-full w-10 border-2 border-primary/20">
+                  <span>{(user.name || user.email)?.charAt(0).toUpperCase()}</span>
+                </div>
+              </div>
+              <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
+                <li className="menu-title text-xs opacity-50 uppercase tracking-widest">{user.role}</li>
+                <div className="divider my-0 opacity-20"></div>
+                <li><Link href="/dashboard">Dashboard</Link></li>
+                <li><Link href="/profile">Profile Settings</Link></li>
+                <li><button onClick={handleLogout} className="text-error font-semibold">Logout</button></li>
+              </ul>
             </div>
-            <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
-              <li className="menu-title text-xs opacity-50 uppercase tracking-widest">{user.role}</li>
-              <div className="divider my-0 opacity-20"></div>
-              <li><Link href="/profile">Profile Settings</Link></li>
-              <li><button onClick={handleLogout} className="text-error font-semibold">Logout</button></li>
-            </ul>
           </div>
         ) : (
           <div className="flex gap-2">

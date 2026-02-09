@@ -55,7 +55,7 @@ export default function Core() {
               <Link href="/auth/register" className="btn btn-primary px-8">
                 Get Started
               </Link>
-              <Link href="/projects" className="btn btn-outline px-8">
+              <Link href="/projects/browse" className="btn btn-outline px-8">
                 Browse Work
               </Link>
             </div>

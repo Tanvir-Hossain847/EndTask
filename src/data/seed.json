@@ -1,0 +1,127 @@
+{
+    "projects": [
+        {
+            "title": "E-commerce Cart Bug Fix",
+            "description": "Need help fixing a persistent shopping cart issue where items disappear after page refresh. Must have experience with React state management and local storage.",
+            "budget": 300,
+            "deadline": "2026-02-20",
+            "category": "Web Development",
+            "status": "OPEN",
+            "buyerId": "buyer_demo_1",
+            "buyerEmail": "buyer1@example.com",
+            "buyerName": "John Smith",
+            "assignedSolverId": null,
+            "createdAt": "2026-02-05T10:00:00Z"
+        },
+        {
+            "title": "React Dashboard Development",
+            "description": "Looking for a developer to build a comprehensive admin dashboard with charts, tables, and user management features. Must use React and Tailwind CSS.",
+            "budget": 1500,
+            "deadline": "2026-03-15",
+            "category": "Web Development",
+            "status": "OPEN",
+            "buyerId": "buyer_demo_2",
+            "buyerEmail": "buyer2@example.com",
+            "buyerName": "Sarah Johnson",
+            "assignedSolverId": null,
+            "createdAt": "2026-02-03T14:30:00Z"
+        },
+        {
+            "title": "REST API with Node.js",
+            "description": "Build a scalable REST API using Express.js and MongoDB. Should include authentication, rate limiting, and proper error handling.",
+            "budget": 1200,
+            "deadline": "2026-03-01",
+            "category": "Backend Development",
+            "status": "OPEN",
+            "buyerId": "buyer_demo_1",
+            "buyerEmail": "buyer1@example.com",
+            "buyerName": "John Smith",
+            "assignedSolverId": null,
+            "createdAt": "2026-02-01T09:00:00Z"
+        },
+        {
+            "title": "Mobile App UI Redesign",
+            "description": "Complete UI/UX redesign for a React Native fitness tracking app. Need modern, clean design with smooth animations.",
+            "budget": 800,
+            "deadline": "2026-02-25",
+            "category": "Mobile Development",
+            "status": "ASSIGNED",
+            "buyerId": "buyer_demo_2",
+            "buyerEmail": "buyer2@example.com",
+            "buyerName": "Sarah Johnson",
+            "assignedSolverId": "solver_demo_1",
+            "assignedSolverEmail": "solver@example.com",
+            "createdAt": "2026-01-28T16:00:00Z"
+        },
+        {
+            "title": "Database Optimization",
+            "description": "PostgreSQL database running slow. Need expert to analyze query performance, add proper indexes, and optimize critical queries.",
+            "budget": 400,
+            "deadline": "2026-02-15",
+            "category": "Backend Development",
+            "status": "OPEN",
+            "buyerId": "buyer_demo_1",
+            "buyerEmail": "buyer1@example.com",
+            "buyerName": "John Smith",
+            "assignedSolverId": null,
+            "createdAt": "2026-02-07T11:00:00Z"
+        },
+        {
+            "title": "CI/CD Pipeline Setup",
+            "description": "Set up automated CI/CD pipeline using GitHub Actions for a Node.js project. Include testing, linting, and deployment to AWS.",
+            "budget": 600,
+            "deadline": "2026-02-28",
+            "category": "DevOps",
+            "status": "OPEN",
+            "buyerId": "buyer_demo_2",
+            "buyerEmail": "buyer2@example.com",
+            "buyerName": "Sarah Johnson",
+            "assignedSolverId": null,
+            "createdAt": "2026-02-06T08:30:00Z"
+        }
+    ],
+    "tasks": [
+        {
+            "projectId": "mobile_app_redesign",
+            "projectTitle": "Mobile App UI Redesign",
+            "title": "Design System Setup",
+            "description": "Create a comprehensive design system including color palette, typography scale, spacing system, and reusable component library. This will serve as the foundation for all UI components.",
+            "deadline": "2026-02-12",
+            "status": "COMPLETED",
+            "solverId": "solver_demo_1",
+            "solverEmail": "solver@example.com",
+            "submissionUrl": "/uploads/design_system.zip",
+            "submittedAt": "2026-02-11T14:00:00Z",
+            "feedback": "Excellent work! The design system is well organized.",
+            "createdAt": "2026-01-29T10:00:00Z"
+        },
+        {
+            "projectId": "mobile_app_redesign",
+            "projectTitle": "Mobile App UI Redesign",
+            "title": "Home Screen Redesign",
+            "description": "Implement the new home screen design with activity feed, quick action buttons, and personalized recommendations section. Include smooth scroll animations.",
+            "deadline": "2026-02-18",
+            "status": "IN_PROGRESS",
+            "solverId": "solver_demo_1",
+            "solverEmail": "solver@example.com",
+            "submissionUrl": null,
+            "submittedAt": null,
+            "feedback": null,
+            "createdAt": "2026-02-01T10:00:00Z"
+        },
+        {
+            "projectId": "mobile_app_redesign",
+            "projectTitle": "Mobile App UI Redesign",
+            "title": "Workout Tracker UI",
+            "description": "Build the workout tracking interface with animated progress indicators, exercise list with drag-to-reorder, and real-time timer component.",
+            "deadline": "2026-02-22",
+            "status": "TODO",
+            "solverId": "solver_demo_1",
+            "solverEmail": "solver@example.com",
+            "submissionUrl": null,
+            "submittedAt": null,
+            "feedback": null,
+            "createdAt": "2026-02-01T10:00:00Z"
+        }
+    ]
+}
