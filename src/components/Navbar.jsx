@@ -1,13 +1,24 @@
-"use Client";
+"use client";
+
 import React from 'react';
 import Link from 'next/link';
+import { useAuth } from '@/context/AuthContext';
+import { useRouter } from 'next/navigation';
 
-export default function Navbar({ user, onLogout }) {
-  // Logic to determine links based on user role
+export default function Navbar() {
+  const { user, loading, logout } = useAuth();
+  const router = useRouter();
+
+  const handleLogout = async () => {
+    await logout();
+    router.push('/auth/login');
+  };
+
   const renderLinks = () => {
+    if (loading) return null;
     if (!user) {
       return (
-        <li><Link href="/login">Login</Link></li>
+        <li><Link href="/auth/login">Login</Link></li>
       );
     }
 
@@ -53,11 +64,10 @@ export default function Navbar({ user, onLogout }) {
           </ul>
         </div>
         <Link href="/" className="btn btn-ghost text-xl font-bold tracking-tight">
-          WORK<span className="text-primary">FLOW</span>
+          END<span className="text-primary">TASK</span>
         </Link>
       </div>
 
-      {/* Desktop Menu */}
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1 gap-2">
           {renderLinks()}
@@ -68,18 +78,22 @@ export default function Navbar({ user, onLogout }) {
         {user ? (
           <div className="dropdown dropdown-end">
             <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar placeholder">
-              <div className="bg-neutral text-neutral-content rounded-full w-10">
-                <span>{user.name?.charAt(0)}</span>
+              <div className="bg-neutral text-neutral-content rounded-full w-10 border-2 border-primary/20">
+                <span>{(user.name || user.email)?.charAt(0).toUpperCase()}</span>
               </div>
             </div>
-            <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-              <li className="menu-title text-xs opacity-50">{user.role}</li>
+            <ul tabIndex={0} className="mt-3 z-[1] p-2 shadow-xl menu menu-sm dropdown-content bg-base-100 rounded-box w-52 border border-base-200">
+              <li className="menu-title text-xs opacity-50 uppercase tracking-widest">{user.role}</li>
+              <div className="divider my-0 opacity-20"></div>
               <li><Link href="/profile">Profile Settings</Link></li>
-              <li><button onClick={onLogout} className="text-error">Logout</button></li>
+              <li><button onClick={handleLogout} className="text-error font-semibold">Logout</button></li>
             </ul>
           </div>
         ) : (
-          <Link href="/register" className="btn btn-primary btn-sm">Join Marketplace</Link>
+          <div className="flex gap-2">
+            <Link href="/auth/login" className="btn btn-ghost btn-sm">Login</Link>
+            <Link href="/auth/register" className="btn btn-primary btn-sm">Join</Link>
+          </div>
         )}
       </div>
     </div>
