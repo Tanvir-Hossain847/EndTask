@@ -106,12 +106,15 @@ export const AuthProvider = ({ children }) => {
 
   // Login with Email/Password
   const login = useCallback(async (email, password) => {
+    setLoading(true);
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      // Don't set loading false here; onAuthStateChanged will handle it
       return { success: true };
     } catch (err) {
       setError(err.message);
+      setLoading(false);
       return { success: false, error: err.message };
     }
   }, []);
@@ -135,6 +138,7 @@ export const AuthProvider = ({ children }) => {
 
   // Login with Google
   const googleLogin = useCallback(async () => {
+    setLoading(true);
     setError(null);
     const provider = new GoogleAuthProvider();
     try {
@@ -151,6 +155,7 @@ export const AuthProvider = ({ children }) => {
     } catch (err) {
       console.error("Google Login Error:", err);
       setError(err.message);
+      setLoading(false);
       return { success: false, error: err.message };
     }
   }, []);
