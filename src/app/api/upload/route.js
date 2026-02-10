@@ -1,17 +1,25 @@
 import { NextResponse } from "next/server";
-import { writeFile, mkdir } from "fs/promises";
-import { existsSync } from "fs";
-import path from "path";
+import { v2 as cloudinary } from "cloudinary";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// POST /api/upload - Upload a ZIP file
+// Configure Cloudinary
+if (process.env.CLOUDINARY_URL) {
+  // If CLOUDINARY_URL is present, it will be used automatically by the SDK
+} else {
+  cloudinary.config({
+    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+    api_key: process.env.CLOUDINARY_API_KEY,
+    api_secret: process.env.CLOUDINARY_API_SECRET,
+  });
+}
+
+// POST /api/upload - Upload a ZIP file to Cloudinary
 export async function POST(request) {
   try {
     const formData = await request.formData();
     const file = formData.get("file");
     const taskId = formData.get("taskId");
-    const solverId = formData.get("solverId");
 
     if (!file) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
@@ -34,24 +42,27 @@ export async function POST(request) {
       );
     }
 
-    // Create uploads directory if it doesn't exist
-    const uploadsDir = path.join(process.cwd(), "public", "uploads");
-    if (!existsSync(uploadsDir)) {
-      await mkdir(uploadsDir, { recursive: true });
-    }
-
-    // Generate unique filename
-    const timestamp = Date.now();
-    const safeFilename = file.name.replace(/[^a-zA-Z0-9.-]/g, "_");
-    const filename = `${timestamp}_${safeFilename}`;
-    const filepath = path.join(uploadsDir, filename);
-
-    // Save file
+    // Convert file to buffer
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    await writeFile(filepath, buffer);
 
-    const fileUrl = `/uploads/${filename}`;
+    // Upload to Cloudinary using upload_stream (more reliable for raw files)
+    const uploadResult = await new Promise((resolve, reject) => {
+      const uploadStream = cloudinary.uploader.upload_stream(
+        {
+          resource_type: "raw",
+          folder: "racoai_submissions",
+          public_id: `${Date.now()}_${file.name.replace(/\.[^/.]+$/, "")}`,
+        },
+        (error, result) => {
+          if (error) reject(error);
+          else resolve(result);
+        }
+      );
+      uploadStream.end(buffer);
+    });
+
+    const fileUrl = uploadResult.secure_url;
 
     // If taskId provided, update the task with submission
     if (taskId) {
@@ -72,12 +83,12 @@ export async function POST(request) {
 
     return NextResponse.json({
       success: true,
-      filename,
       url: fileUrl,
       size: file.size,
+      public_id: uploadResult.public_id,
     });
   } catch (error) {
-    console.error("Upload error:", error);
+    console.error("Cloudinary Upload error:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
