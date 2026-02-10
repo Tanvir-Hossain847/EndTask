@@ -77,7 +77,7 @@ export default function BrowseProjectsPage() {
             <h1 className="text-base font-medium">Browse Projects</h1>
           </div>
 
-          {/* Filters */}
+          {}
           <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-6">
             <div className="flex flex-col md:flex-row gap-4">
               <div className="flex-1">
@@ -103,14 +103,14 @@ export default function BrowseProjectsPage() {
             </div>
           </div>
 
-          {/* Loading */}
+          {}
           {loading && (
             <div className="flex justify-center py-12">
               <span className="loading loading-spinner loading-md text-primary"></span>
             </div>
           )}
 
-          {/* Results */}
+          {}
           {!loading && (
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {filteredProjects.map((project) => (
@@ -152,7 +152,7 @@ export default function BrowseProjectsPage() {
             </div>
           )}
 
-          {/* Empty State */}
+          {}
           {!loading && filteredProjects.length === 0 && (
             <div className="text-center py-12 text-white/40">
               <HiOutlineSearch className="w-12 h-12 mx-auto mb-3 opacity-50" />

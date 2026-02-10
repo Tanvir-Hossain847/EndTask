@@ -10,13 +10,13 @@ export default function Template({ children }) {
   const containerRef = useRef(null);
 
   useGSAP(() => {
-    // Simple elegant fade-in and slide-up
+    
     gsap.fromTo(
       containerRef.current,
       { opacity: 0, y: 20 },
       { opacity: 1, y: 0, duration: 0.8, ease: "power3.out" }
     );
-  }, { scope: containerRef, dependencies: [pathname] }); // Re-run on route change
+  }, { scope: containerRef, dependencies: [pathname] }); 
 
   return (
     <div ref={containerRef} className="min-h-screen">

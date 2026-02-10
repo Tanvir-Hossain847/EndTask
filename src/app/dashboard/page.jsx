@@ -68,7 +68,7 @@ export default function Dashboard() {
       <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
       
       <div className="drawer-content flex flex-col">
-        {/* Mobile Header */}
+        {}
         <header className="lg:hidden flex items-center justify-between p-4 border-b border-white/5 bg-base-100">
           <span className="text-sm font-bold tracking-tight">
             END<span className="text-primary">TASK</span>
@@ -78,7 +78,7 @@ export default function Dashboard() {
           </label>
         </header>
 
-        {/* Main Content */}
+        {}
         <main className="flex-1 p-4 md:p-6">
           <div className="flex items-center justify-between mb-6">
             <div>
@@ -95,7 +95,7 @@ export default function Dashboard() {
         </main>
       </div>
 
-      {/* Sidebar / Drawer Side */}
+      {}
       <div className="drawer-side z-50">
         <label htmlFor="dashboard-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
         <aside className="w-64 lg:w-56 bg-base-100 border-r border-white/5 flex flex-col h-full">

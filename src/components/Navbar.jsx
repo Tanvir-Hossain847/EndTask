@@ -65,7 +65,7 @@ export default function Navbar() {
   return (
     <div className="navbar bg-base-100 shadow-sm px-4 lg:px-8">
       <div className="navbar-start">
-        {/* Mobile Dropdown */}
+        {}
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
             <svg

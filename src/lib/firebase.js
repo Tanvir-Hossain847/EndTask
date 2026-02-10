@@ -11,7 +11,7 @@ const firebaseConfig = {
   appId: process.env.NEXT_PUBLIC_appId,
 };
 
-// 1. Log to confirm config is actually loading
+
 if (!firebaseConfig.projectId) {
   console.error("CRITICAL: Firebase Config is missing or empty. Check .env file.");
 }
@@ -19,18 +19,18 @@ if (!firebaseConfig.projectId) {
 let app;
 let db;
 
-// 2. Singleton Pattern with Long Polling Force
+
 if (getApps().length === 0) {
   app = initializeApp(firebaseConfig);
-  // Force Long Polling: This fixes "client offline" in environments where WebSockets are blocked
+  
   db = initializeFirestore(app, {
     experimentalForceLongPolling: true,
   });
 } else {
   app = getApp();
-  // If app exists, we try to get Firestore. 
-  // NOTE: If Firestore was already initialized by a previous hot-reload WITHOUT long-polling, 
-  // you might need to refresh the page to apply this change.
+  
+  
+  
   db = getFirestore(app);
 }
 

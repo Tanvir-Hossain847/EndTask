@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getUsersCollection } from "@/lib/mongodb";
 
-// GET /api/users?uid=xxx - Get user by Firebase UID
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -25,7 +25,7 @@ export async function GET(request) {
   }
 }
 
-// POST /api/users - Create or update user
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -40,7 +40,7 @@ export async function POST(request) {
 
     const users = await getUsersCollection();
 
-    // Upsert: Update if exists, create if not
+    
     const result = await users.updateOne(
       { uid },
       {
@@ -60,7 +60,7 @@ export async function POST(request) {
       { upsert: true }
     );
 
-    // Fetch and return the updated user
+    
     const user = await users.findOne({ uid });
 
     return NextResponse.json(user, { status: result.upsertedCount > 0 ? 201 : 200 });

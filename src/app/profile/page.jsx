@@ -56,7 +56,7 @@ export default function ProfilePage() {
       <div className="max-w-2xl mx-auto px-4">
         <div className="card bg-base-100 shadow-xl">
           <div className="card-body">
-            {/* Header */}
+            {}
             <div className="flex items-center justify-between mb-6">
               <h1 className="text-2xl font-bold">Profile Settings</h1>
               <button
@@ -68,14 +68,14 @@ export default function ProfilePage() {
               </button>
             </div>
 
-            {/* Messages */}
+            {}
             {message.text && (
               <div className={`alert ${message.type === "success" ? "alert-success" : "alert-error"} mb-4`}>
                 <span>{message.text}</span>
               </div>
             )}
 
-            {/* Avatar */}
+            {}
             <div className="flex justify-center mb-6">
               <div className="avatar placeholder">
                 <div className="bg-neutral text-neutral-content rounded-full w-24 border-4 border-primary/20">
@@ -84,9 +84,9 @@ export default function ProfilePage() {
               </div>
             </div>
 
-            {/* Profile Form */}
+            {}
             <div className="space-y-4">
-              {/* Name */}
+              {}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold flex items-center gap-2">
@@ -106,7 +106,7 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              {/* Email */}
+              {}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold flex items-center gap-2">
@@ -119,7 +119,7 @@ export default function ProfilePage() {
                 </label>
               </div>
 
-              {/* Role */}
+              {}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold flex items-center gap-2">
@@ -131,7 +131,7 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              {/* Bio */}
+              {}
               <div className="form-control">
                 <label className="label">
                   <span className="label-text font-semibold">Bio</span>
@@ -150,7 +150,7 @@ export default function ProfilePage() {
                 )}
               </div>
 
-              {/* Save Button */}
+              {}
               {isEditing && (
                 <div className="flex justify-end gap-2 mt-6">
                   <button onClick={() => setIsEditing(false)} className="btn btn-ghost">

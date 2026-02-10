@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// GET /api/tasks/[id] - Get task details
+
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
@@ -22,7 +22,7 @@ export async function GET(request, { params }) {
   }
 }
 
-// PUT /api/tasks/[id] - Update task
+
 export async function PUT(request, { params }) {
   try {
     const { id } = await params;

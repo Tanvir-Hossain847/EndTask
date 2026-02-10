@@ -12,26 +12,26 @@ const steps = [
 ];
 
 export default function ProjectTimeline({ status }) {
-  // Determine current step index
+  
   let currentStepIndex = steps.findIndex(s => s.id === status);
   const isRejected = status === 'REJECTED';
 
-  // If rejected, we might want to show it as a special state or revert to In Progress visually but with error
-  // For linear progression, let's treat REJECTED as a halt at SUBMITTED/REVIEW stage
+  
+  
   if (isRejected) {
     currentStepIndex = steps.findIndex(s => s.id === 'SUBMITTED');
   }
 
-  // Handle task-level statuses mapping to project-level if needed, 
-  // but this component assumes project-level status. 
-  // If status is 'TODO' (task level), it might correspond to 'ASSIGNED' or 'IN_PROGRESS' at project level.
-  // Let's stick to the Project Statuses: OPEN, ASSIGNED, COMPLETED. 
-  // Wait, the project status jumps from OPEN -> ASSIGNED -> COMPLETED.
-  // The TASKS have IN_PROGRESS, SUBMITTED.
-  // The USER asked for "Project unassigned -> assigned", "Task in-progress -> submitted -> completed".
   
-  // Let's make this component flexible. If it detects task statuses, it uses a task timeline.
-  // If project statuses, it uses project timeline.
+  
+  
+  
+  
+  
+  
+  
+  
+  
   
   const isTaskStatus = ['TODO', 'IN_PROGRESS', 'SUBMITTED', 'REJECTED'].includes(status);
   
@@ -55,10 +55,10 @@ export default function ProjectTimeline({ status }) {
   return (
     <div className="w-full py-6">
       <div className="relative flex items-center justify-between w-full">
-        {/* Background Line */}
+        {}
         <div className="absolute left-0 top-1/2 -translate-y-1/2 w-full h-1 bg-white/10 rounded-full -z-10" />
 
-        {/* Progress Line */}
+        {}
         <motion.div 
           className="absolute left-0 top-1/2 -translate-y-1/2 h-1 bg-primary rounded-full -z-10"
           initial={{ width: '0%' }}

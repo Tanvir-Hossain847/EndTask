@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// GET /api/projects/[id]/tasks - Get all tasks for a project
+
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
@@ -21,7 +21,7 @@ export async function GET(request, { params }) {
   }
 }
 
-// POST /api/projects/[id]/tasks - Create a new task
+
 export async function POST(request, { params }) {
   try {
     const { id } = await params;

@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getUsersCollection } from "@/lib/mongodb";
 
-// GET /api/users/[uid] - Get specific user
+
 export async function GET(request, { params }) {
   try {
     const { uid } = await params;
@@ -20,7 +20,7 @@ export async function GET(request, { params }) {
   }
 }
 
-// PUT /api/users/[uid] - Update user profile
+
 export async function PUT(request, { params }) {
   try {
     const { uid } = await params;

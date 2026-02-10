@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// GET /api/projects/[id] - Get single project
+
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
@@ -12,7 +12,7 @@ export async function GET(request, { params }) {
     try {
       project = await db.collection("projects").findOne({ _id: new ObjectId(id) });
     } catch {
-      // If not valid ObjectId, try as string id
+      
       project = await db.collection("projects").findOne({ _id: id });
     }
 
@@ -27,7 +27,7 @@ export async function GET(request, { params }) {
   }
 }
 
-// PUT /api/projects/[id] - Update project
+
 export async function PUT(request, { params }) {
   try {
     const { id } = await params;

@@ -12,7 +12,7 @@ export default function ProtectedRoute({ children, allowedRoles = [] }) {
       if (!user) {
         router.push("/auth/login");
       } else if (allowedRoles.length > 0 && !allowedRoles.includes(user.role)) {
-        // Redirect to main dashboard if role is not allowed
+        
         router.push("/dashboard"); 
       }
     }

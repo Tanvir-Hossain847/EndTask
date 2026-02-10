@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 import seedData from "@/data/seed.json";
 
-// POST /api/seed - Seed the database with sample data
+
 export async function POST(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -11,7 +11,7 @@ export async function POST(request) {
     const db = await getDatabase();
     let results = { projects: 0, tasks: 0 };
 
-    // Seed projects
+    
     const projectsCollection = db.collection("projects");
     if (force) {
       await projectsCollection.deleteMany({});
@@ -23,7 +23,7 @@ export async function POST(request) {
       results.projects = seedData.projects.length;
     }
 
-    // Seed tasks
+    
     const tasksCollection = db.collection("tasks");
     if (force) {
       await tasksCollection.deleteMany({});
@@ -46,7 +46,7 @@ export async function POST(request) {
   }
 }
 
-// GET /api/seed - Check seed status
+
 export async function GET() {
   try {
     const db = await getDatabase();
@@ -67,7 +67,7 @@ export async function GET() {
   }
 }
 
-// DELETE /api/seed - Clear all data
+
 export async function DELETE() {
   try {
     const db = await getDatabase();

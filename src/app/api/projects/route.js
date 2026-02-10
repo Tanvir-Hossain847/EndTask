@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 
-// GET /api/projects - List all projects (filtered by role/query)
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -12,7 +12,7 @@ export async function GET(request) {
     const db = await getDatabase();
     const collection = db.collection("projects");
 
-    // Build query filter
+    
     const filter = {};
     if (status) filter.status = status;
     if (buyerId) filter.buyerId = buyerId;
@@ -30,7 +30,7 @@ export async function GET(request) {
   }
 }
 
-// POST /api/projects - Create a new project
+
 export async function POST(request) {
   try {
     const body = await request.json();

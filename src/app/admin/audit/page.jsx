@@ -4,7 +4,7 @@ import ProtectedRoute from "@/components/ProtectedRoute";
 import { HiOutlineDocumentReport, HiOutlineCheckCircle, HiOutlineClock } from "react-icons/hi";
 
 export default function AuditPage() {
-  // Mock audit logs
+  
   const auditLogs = [
     { id: 1, action: "User Login", user: "john@example.com", time: "2 minutes ago", type: "info" },
     { id: 2, action: "Project Created", user: "buyer@example.com", time: "15 minutes ago", type: "success" },

@@ -64,7 +64,7 @@ export default function CreateProjectPage() {
           </div>
 
           <div className="bg-base-100 border border-white/5 rounded-2xl p-6 md:p-8 relative overflow-hidden">
-            {/* Background decoration */}
+            {}
             <div className="absolute top-0 right-0 w-64 h-64 bg-primary/5 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2 pointer-events-none"></div>
 
             {error && (
@@ -74,7 +74,7 @@ export default function CreateProjectPage() {
             )}
 
             <form onSubmit={handleSubmit} className="space-y-6 relative">
-              {/* Project Title */}
+              {}
               <div className="form-control w-full">
                 <label className="label px-0">
                   <span className="label-text text-sm font-medium text-white/80">Project Title</span>
@@ -90,7 +90,7 @@ export default function CreateProjectPage() {
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {/* Category */}
+                {}
                 <div className="form-control w-full">
                   <label className="label px-0">
                     <span className="label-text text-sm font-medium text-white/80">Category</span>
@@ -110,7 +110,7 @@ export default function CreateProjectPage() {
                   </select>
                 </div>
 
-                {/* Deadline */}
+                {}
                 <div className="form-control w-full">
                   <label className="label px-0">
                     <span className="label-text text-sm font-medium text-white/80">Deadline</span>
@@ -128,7 +128,7 @@ export default function CreateProjectPage() {
                 </div>
               </div>
 
-              {/* Description */}
+              {}
               <div className="form-control w-full">
                 <label className="label px-0">
                   <span className="label-text text-sm font-medium text-white/80">Description</span>
@@ -143,7 +143,7 @@ export default function CreateProjectPage() {
                 />
               </div>
 
-              {/* Budget */}
+              {}
               <div className="form-control w-full">
                 <label className="label px-0">
                   <span className="label-text text-sm font-medium text-white/80">Budget</span>
@@ -164,7 +164,7 @@ export default function CreateProjectPage() {
                 </div>
               </div>
 
-              {/* Actions */}
+              {}
               <div className="flex items-center justify-end gap-3 pt-6 border-t border-white/5 mt-8">
                 <button
                   type="button"

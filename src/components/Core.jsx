@@ -41,7 +41,7 @@ export default function Core() {
 
   return (
     <div className="min-h-screen bg-base-100">
-      {/* --- HERO SECTION --- */}
+      {}
       <section className="hero py-20 bg-base-200">
         <div className="hero-content text-center">
           <div className="max-w-2xl">
@@ -87,7 +87,7 @@ export default function Core() {
         </div>
       </section>
 
-      {/* --- WORKFLOW STEPS --- */}
+      {}
       <section className="py-20 px-4 max-w-6xl mx-auto">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-bold">System Architecture</h2>
@@ -118,7 +118,7 @@ export default function Core() {
         </div>
       </section>
 
-      {/* --- ROLE GOVERNANCE --- */}
+      {}
       <section className="bg-neutral text-neutral-content py-20">
         <div className="max-w-5xl mx-auto px-4 grid md:grid-cols-2 gap-12 items-center">
           <div>
@@ -143,7 +143,7 @@ export default function Core() {
             </div>
           </div>
 
-          {/* Static State Visualizer */}
+          {}
           <div className="bg-base-300 p-8 rounded-2xl text-base-content border border-base-100">
             <div className="flex justify-between items-center mb-4">
               <span className="font-mono text-[10px] uppercase opacity-50">

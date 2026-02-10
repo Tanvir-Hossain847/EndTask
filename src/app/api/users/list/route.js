@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getUsersCollection } from "@/lib/mongodb";
 
-// GET /api/users/list - Get all users (for admin)
+
 export async function GET() {
   try {
     const users = await getUsersCollection();

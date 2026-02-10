@@ -39,7 +39,7 @@ export default function TaskDetailPage() {
       status: "SUBMITTED",
       submittedAt: new Date().toISOString(),
     }));
-    // Optimistically update status on server (though FileUpload usually handles file, we need to update task status)
+    
     updateStatus("SUBMITTED", data.url);
   };
 
@@ -110,7 +110,7 @@ export default function TaskDetailPage() {
     <ProtectedRoute allowedRoles={["SOLVER", "ADMIN"]}>
       <div className="min-h-screen bg-black py-8">
         <div className="max-w-3xl mx-auto px-4">
-          {/* Back Button */}
+          {}
           <button
             onClick={() => router.back()}
             className="flex items-center gap-1 text-xs text-white/40 hover:text-white mb-6"
@@ -119,7 +119,7 @@ export default function TaskDetailPage() {
             Back to Tasks
           </button>
 
-          {/* Header */}
+          {}
           <div className="flex items-start justify-between mb-6">
             <div>
               <h1 className="text-lg font-medium mb-1">{task.title}</h1>
@@ -128,7 +128,7 @@ export default function TaskDetailPage() {
             {getStatusBadge(task.status)}
           </div>
 
-          {/* Success Banner for Completed */}
+          {}
           {task.status === "COMPLETED" && (
             <div className="alert alert-success shadow-lg mb-6 bg-success/10 border-success/20 text-success">
               <div className="flex flex-col">
@@ -143,13 +143,13 @@ export default function TaskDetailPage() {
             </div>
           )}
 
-          {/* Details Card */}
+          {}
           <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-4">
             <h2 className="text-sm font-medium mb-3">Description</h2>
             <p className="text-xs text-white/60 leading-relaxed">{task.description}</p>
           </div>
 
-          {/* Metadata */}
+          {}
           <div className="grid grid-cols-2 gap-4 mb-6">
             <div className="bg-base-100 border border-white/5 rounded-lg p-3">
               <p className="text-xs text-white/40 mb-1">Deadline</p>
@@ -164,7 +164,7 @@ export default function TaskDetailPage() {
             </div>
           </div>
 
-          {/* Status Actions */}
+          {}
           {task.status === "TODO" && (
             <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-4">
               <p className="text-xs text-white/40 mb-3">Ready to start working?</p>
@@ -177,7 +177,7 @@ export default function TaskDetailPage() {
             </div>
           )}
 
-          {/* Upload Section */}
+          {}
           {(task.status === "IN_PROGRESS" || task.status === "REJECTED") && (
             <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-4">
               <h2 className="text-sm font-medium mb-3">Submit Work</h2>
@@ -189,7 +189,7 @@ export default function TaskDetailPage() {
             </div>
           )}
 
-          {/* Submission Info */}
+          {}
           {(task.submissionUrl || task.status === "SUBMITTED") && (
             <div className="bg-base-100 border border-primary/20 rounded-lg p-4 mb-4">
               <h2 className="text-sm font-medium mb-3 flex items-center gap-2">
@@ -214,7 +214,7 @@ export default function TaskDetailPage() {
             </div>
           )}
 
-          {/* Feedback */}
+          {}
           {task.feedback && (
             <div className="bg-base-100 border border-white/5 rounded-lg p-4">
               <h2 className="text-sm font-medium mb-2">Buyer Feedback</h2>

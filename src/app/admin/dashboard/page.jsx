@@ -47,7 +47,7 @@ export default function AdminDashboard() {
   };
 
   const handleRoleChange = async (uid, newRole) => {
-    // ... existing handleRoleChange code ...
+    
     try {
       const res = await fetch(`/api/users/${uid}`, {
         method: "PUT",
@@ -81,7 +81,7 @@ export default function AdminDashboard() {
             </button>
           </div>
 
-          {/* Stats */}
+          {}
           <div className="grid grid-cols-3 gap-4 mb-6">
             <div className="bg-base-100 border border-white/5 rounded-lg p-4">
               <p className="text-xs text-white/40">Users</p>
@@ -99,7 +99,7 @@ export default function AdminDashboard() {
             </div>
           </div>
 
-          {/* User Management */}
+          {}
           <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-6">
             <h2 className="text-sm font-medium mb-4 flex items-center gap-2">
               <HiOutlineUsers className="w-4 h-4" /> User Management
@@ -153,7 +153,7 @@ export default function AdminDashboard() {
             )}
           </div>
 
-          {/* Projects Overview */}
+          {}
           <div className="bg-base-100 border border-white/5 rounded-lg p-4">
             <h2 className="text-sm font-medium mb-4 flex items-center gap-2">
               <HiOutlineCollection className="w-4 h-4" /> All Projects

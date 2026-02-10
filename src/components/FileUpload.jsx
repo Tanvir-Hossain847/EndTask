@@ -12,13 +12,13 @@ export default function FileUpload({ taskId, solverId, onUploadComplete }) {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    // Validate ZIP
+    
     if (!file.name.endsWith(".zip")) {
       setError("Only ZIP files are allowed");
       return;
     }
 
-    // Validate size (50MB max)
+    
     if (file.size > 50 * 1024 * 1024) {
       setError("File too large. Maximum 50MB");
       return;
@@ -34,7 +34,7 @@ export default function FileUpload({ taskId, solverId, onUploadComplete }) {
       if (taskId) formData.append("taskId", taskId);
       if (solverId) formData.append("solverId", solverId);
 
-      // Simulate progress (actual XHR would give real progress)
+      
       const progressInterval = setInterval(() => {
         setProgress((p) => Math.min(p + 10, 90));
       }, 100);
@@ -59,7 +59,7 @@ export default function FileUpload({ taskId, solverId, onUploadComplete }) {
         onUploadComplete(data);
       }
 
-      // Reset after 2 seconds
+      
       setTimeout(() => {
         setSuccess(false);
         setProgress(0);

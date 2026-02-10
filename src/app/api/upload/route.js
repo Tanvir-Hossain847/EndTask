@@ -3,7 +3,7 @@ import { v2 as cloudinary } from "cloudinary";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// Configure Cloudinary
+
 if (process.env.CLOUDINARY_URL) {
   cloudinary.config({
     cloudinary_url: process.env.CLOUDINARY_URL,
@@ -16,7 +16,7 @@ if (process.env.CLOUDINARY_URL) {
   });
 }
 
-// POST /api/upload - Upload a ZIP file to Cloudinary
+
 export async function POST(request) {
   try {
     const formData = await request.formData();
@@ -27,7 +27,7 @@ export async function POST(request) {
       return NextResponse.json({ error: "No file provided" }, { status: 400 });
     }
 
-    // Validate file type
+    
     if (!file.name.endsWith(".zip")) {
       return NextResponse.json(
         { error: "Only ZIP files are allowed" },
@@ -35,7 +35,7 @@ export async function POST(request) {
       );
     }
 
-    // Validate file size (max 50MB)
+    
     const MAX_SIZE = 50 * 1024 * 1024;
     if (file.size > MAX_SIZE) {
       return NextResponse.json(
@@ -44,11 +44,11 @@ export async function POST(request) {
       );
     }
 
-    // Convert file to buffer
+    
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
 
-    // Upload to Cloudinary using upload_stream (more reliable for raw files)
+    
     const uploadResult = await new Promise((resolve, reject) => {
       const uploadStream = cloudinary.uploader.upload_stream(
         {
@@ -66,7 +66,7 @@ export async function POST(request) {
 
     const fileUrl = uploadResult.secure_url;
 
-    // If taskId provided, update the task with submission
+    
     if (taskId) {
       const db = await getDatabase();
       const tasks = db.collection("tasks");
@@ -95,7 +95,7 @@ export async function POST(request) {
   }
 }
 
-// Configure for larger file uploads
+
 export const config = {
   api: {
     bodyParser: false,

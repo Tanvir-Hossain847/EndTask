@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 
-// GET /api/tasks - Get tasks for a solver
+
 export async function GET(request) {
   try {
     const { searchParams } = new URL(request.url);
@@ -12,7 +12,7 @@ export async function GET(request) {
     const db = await getDatabase();
     const collection = db.collection("tasks");
 
-    // Build query filter
+    
     const filter = {};
     if (solverId) filter.solverId = solverId;
     if (solverEmail) filter.solverEmail = solverEmail;

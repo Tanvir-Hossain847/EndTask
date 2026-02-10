@@ -166,7 +166,7 @@ export default function ProjectDetailPage() {
             <HiOutlineArrowLeft className="w-3 h-3" /> Back
           </button>
 
-          {/* Header */}
+          {}
           <div className="flex items-start justify-between mb-6">
             <div>
               <h1 className="text-lg font-medium mb-1">{project.title}</h1>
@@ -177,7 +177,7 @@ export default function ProjectDetailPage() {
 
 
 
-          {/* Details */}
+          {}
           <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-4">
             <p className="text-xs text-white/60 leading-relaxed">{project.description}</p>
           </div>
@@ -199,7 +199,7 @@ export default function ProjectDetailPage() {
             </div>
           </div>
 
-          {/* Solver Actions - Request to Work */}
+          {}
           {user?.role === "SOLVER" && project.status === "OPEN" && !hasRequested && (
             <div className="bg-primary/10 border border-primary/20 rounded-lg p-4 mb-6">
               <p className="text-sm mb-3">Interested in this project?</p>
@@ -213,7 +213,7 @@ export default function ProjectDetailPage() {
             </div>
           )}
 
-          {/* Buyer: View Requests */}
+          {}
           {(isBuyer || isAdmin) && project.status === "OPEN" && requests.length > 0 && (
             <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-6">
               <h3 className="text-sm font-medium mb-3">Solver Requests ({requests.length})</h3>
@@ -244,7 +244,7 @@ export default function ProjectDetailPage() {
             </div>
           )}
 
-          {/* Assigned Solver Info */}
+          {}
           {project.assignedSolverEmail && (
             <div className="bg-base-100 border border-primary/20 rounded-lg p-4 mb-6">
               <div className="flex items-center gap-2">
@@ -254,7 +254,7 @@ export default function ProjectDetailPage() {
             </div>
           )}
 
-          {/* Tasks Section */}
+          {}
           {(isSolver || isBuyer || isAdmin) && project.status !== "OPEN" && (
             <div className="bg-base-100 border border-white/5 rounded-lg p-4 mb-6">
               <div className="flex items-center justify-between mb-4">
@@ -266,7 +266,7 @@ export default function ProjectDetailPage() {
                 )}
               </div>
 
-              {/* New Task Form */}
+              {}
               {showTaskForm && (
                 <form onSubmit={handleCreateTask} className="mb-4 p-3 bg-black/30 rounded-lg">
                   <input
@@ -296,7 +296,7 @@ export default function ProjectDetailPage() {
                 </form>
               )}
 
-              {/* Tasks List */}
+              {}
               <div className="space-y-3">
                 {tasks.map((task) => (
                   <div key={task._id} className="p-3 border border-white/5 rounded-lg">
@@ -312,7 +312,7 @@ export default function ProjectDetailPage() {
                       }`}>{task.status}</span>
                     </div>
 
-                    {/* Submission */}
+                    {}
                     {task.submissionUrl && (
                       <div className="flex items-center justify-between mt-2 p-2 bg-black/30 rounded">
                         <span className="text-xs text-white/50">Submitted {formatDate(task.submittedAt)}</span>
@@ -322,7 +322,7 @@ export default function ProjectDetailPage() {
                       </div>
                     )}
 
-                    {/* Buyer Review Actions */}
+                    {}
                     {(isBuyer || isAdmin) && task.status === "SUBMITTED" && (
                       <div className="flex gap-2 mt-2">
                         <button onClick={() => handleReviewTask(task._id, "ACCEPT")} className="btn btn-success btn-xs">Accept</button>
@@ -330,14 +330,14 @@ export default function ProjectDetailPage() {
                       </div>
                     )}
 
-                    {/* Solver Upload */}
+                    {}
                     {isSolver && (task.status === "IN_PROGRESS" || task.status === "REJECTED") && (
                       <div className="mt-2">
                         <FileUpload taskId={task._id} solverId={user?.uid} onUploadComplete={fetchData} />
                       </div>
                     )}
 
-                    {/* Feedback */}
+                    {}
                     {task.feedback && (
                       <div className="mt-2 p-2 bg-success/10 rounded">
                         <p className="text-xs text-white/60">{task.feedback}</p>

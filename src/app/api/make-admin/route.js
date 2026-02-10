@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getUsersCollection } from "@/lib/mongodb";
 
-// POST /api/make-admin - Promote a user to admin by email
+
 export async function POST(request) {
   try {
     const body = await request.json();
@@ -16,16 +16,16 @@ export async function POST(request) {
 
     const users = await getUsersCollection();
 
-    // Try to find existing user
+    
     const filter = uid ? { uid } : { email };
     const existingUser = await users.findOne(filter);
 
     if (existingUser) {
-      // Update to admin
+      
       await users.updateOne(filter, { $set: { role: "ADMIN" } });
       return NextResponse.json({ success: true, message: "User promoted to ADMIN" });
     } else {
-      // Create new admin user
+      
       const newUser = {
         uid: uid || `manual_${Date.now()}`,
         email: email,

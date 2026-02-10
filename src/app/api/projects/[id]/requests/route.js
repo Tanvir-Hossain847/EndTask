@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { getDatabase } from "@/lib/mongodb";
 import { ObjectId } from "mongodb";
 
-// GET /api/projects/[id]/requests - Get all requests for a project
+
 export async function GET(request, { params }) {
   try {
     const { id } = await params;
@@ -21,7 +21,7 @@ export async function GET(request, { params }) {
   }
 }
 
-// POST /api/projects/[id]/requests - Solver requests to work on project
+
 export async function POST(request, { params }) {
   try {
     const { id } = await params;
@@ -35,7 +35,7 @@ export async function POST(request, { params }) {
     const db = await getDatabase();
     const requests = db.collection("requests");
 
-    // Check if already requested
+    
     const existing = await requests.findOne({ projectId: id, solverId });
     if (existing) {
       return NextResponse.json({ error: "Already requested" }, { status: 400 });

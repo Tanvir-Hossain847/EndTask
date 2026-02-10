@@ -18,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // Fetch user data from MongoDB API
+  
   const fetchUserData = async (firebaseUser) => {
     try {
       const response = await fetch(`/api/users?uid=${firebaseUser.uid}`);
@@ -30,7 +30,7 @@ export const AuthProvider = ({ children }) => {
           ...userData,
         };
       }
-      // User not found in DB - return basic data
+      
       return {
         uid: firebaseUser.uid,
         email: firebaseUser.email,
@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Save user data to MongoDB API
+  
   const saveUserData = async (uid, email, role = "SOLVER") => {
     try {
       const response = await fetch("/api/users", {
@@ -61,7 +61,7 @@ export const AuthProvider = ({ children }) => {
     }
   };
 
-  // Update user profile
+  
   const updateProfile = useCallback(async (profileData) => {
     if (!user?.uid) return { success: false, error: "Not logged in" };
 
@@ -83,7 +83,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, [user]);
 
-  // Listen for auth state changes
+  
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (firebaseUser) => {
       try {
@@ -104,13 +104,13 @@ export const AuthProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // Login with Email/Password
+  
   const login = useCallback(async (email, password) => {
     setLoading(true);
     setError(null);
     try {
       await signInWithEmailAndPassword(auth, email, password);
-      // Don't set loading false here; onAuthStateChanged will handle it
+      
       return { success: true };
     } catch (err) {
       setError(err.message);
@@ -119,14 +119,14 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // Register with Email/Password
+  
   const register = useCallback(async (email, password, role = "SOLVER") => {
     setError(null);
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const newUser = userCredential.user;
 
-      // Save to MongoDB
+      
       await saveUserData(newUser.uid, email, role);
 
       return { success: true };
@@ -136,7 +136,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // Login with Google
+  
   const googleLogin = useCallback(async () => {
     setLoading(true);
     setError(null);
@@ -145,7 +145,7 @@ export const AuthProvider = ({ children }) => {
       const result = await signInWithPopup(auth, provider);
       const googleUser = result.user;
 
-      // Check if user exists, if not create them
+      
       const existingUser = await fetch(`/api/users?uid=${googleUser.uid}`);
       if (existingUser.status === 404) {
         await saveUserData(googleUser.uid, googleUser.email, "SOLVER");
@@ -160,7 +160,7 @@ export const AuthProvider = ({ children }) => {
     }
   }, []);
 
-  // Logout
+  
   const logout = useCallback(async () => {
     try {
       await signOut(auth);

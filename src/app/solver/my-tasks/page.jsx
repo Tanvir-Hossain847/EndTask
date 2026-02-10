@@ -13,7 +13,7 @@ export default function MyTasksPage() {
   const [tasks, setTasks] = useState([]);
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [activeTab, setActiveTab] = useState("todo"); // 'projects' | 'todo' | 'active' | 'completed'
+  const [activeTab, setActiveTab] = useState("todo"); 
 
   useEffect(() => {
     if (user?.email) {
@@ -48,7 +48,7 @@ export default function MyTasksPage() {
         body: JSON.stringify({ status: newStatus }),
       });
       if (res.ok) {
-        fetchData(); // Refresh to move item between tabs
+        fetchData(); 
       }
     } catch (error) {
       console.error("Failed to update status:", error);
@@ -71,7 +71,7 @@ export default function MyTasksPage() {
     return new Date(dateStr).toLocaleDateString("en-US", { month: "short", day: "numeric" });
   };
 
-  // Filter tasks by status for different tabs
+  
   const todoTasks = tasks.filter(t => t.status === "TODO");
   const activeTasks = tasks.filter(t => ["IN_PROGRESS", "SUBMITTED", "REJECTED"].includes(t.status));
   const completedTasks = tasks.filter(t => ["COMPLETED"].includes(t.status));
@@ -87,7 +87,7 @@ export default function MyTasksPage() {
             <h1 className="text-xl font-bold">My Workspace</h1>
           </div>
 
-          {/* Stats Cards */}
+          {}
           <div className="grid grid-cols-4 gap-3 mb-8">
              <div className="bg-base-100 border border-white/5 rounded-lg p-3">
               <p className="text-xs text-white/40 mb-1">Assigned</p>
@@ -107,7 +107,7 @@ export default function MyTasksPage() {
             </div>
           </div>
 
-          {/* Tabs */}
+          {}
           <div className="tabs tabs-boxed bg-base-100 p-1 mb-6 w-full sm:w-fit overflow-x-auto flex-nowrap">
             <button 
               className={`tab tab-sm ${activeTab === 'projects' ? 'tab-active bg-primary text-primary-content' : ''}`}
@@ -144,7 +144,7 @@ export default function MyTasksPage() {
           {!loading && (
             <div className="space-y-3 min-h-[300px]">
               
-              {/* Projects View */}
+              {}
               {activeTab === 'projects' && (
                 <motion.div 
                   initial={{ opacity: 0, x: -20 }}
@@ -179,7 +179,7 @@ export default function MyTasksPage() {
                 </motion.div>
               )}
 
-              {/* Backlog / Todo Tasks View */}
+              {}
               {activeTab === 'todo' && (
                 <motion.div 
                    initial={{ opacity: 0, x: -20 }}
@@ -231,7 +231,7 @@ export default function MyTasksPage() {
                 </motion.div>
               )}
 
-              {/* Active Tasks View */}
+              {}
               {activeTab === 'active' && (
                 <motion.div 
                    initial={{ opacity: 0, x: -20 }}
@@ -280,7 +280,7 @@ export default function MyTasksPage() {
                 </motion.div>
               )}
 
-               {/* Completed Tasks View */}
+               {}
                {activeTab === 'completed' && (
                 <motion.div 
                    initial={{ opacity: 0, x: -20 }}

@@ -63,7 +63,7 @@ export default function MyListingsPage() {
             </Link>
           </div>
 
-          {/* Stats */}
+          {}
           <div className="grid grid-cols-3 gap-3 mb-6">
             <div className="bg-base-100 border border-white/5 rounded-lg p-3">
               <p className="text-xs text-white/40 mb-1">Total</p>
@@ -79,14 +79,14 @@ export default function MyListingsPage() {
             </div>
           </div>
 
-          {/* Loading */}
+          {}
           {loading && (
             <div className="flex justify-center py-12">
               <span className="loading loading-spinner loading-sm text-primary"></span>
             </div>
           )}
 
-          {/* Projects List */}
+          {}
           {!loading && (
             <div className="space-y-3">
               {projects.map((project) => (
@@ -112,7 +112,7 @@ export default function MyListingsPage() {
             </div>
           )}
 
-          {/* Empty State */}
+          {}
           {!loading && projects.length === 0 && (
             <div className="text-center py-12 text-white/40">
               <HiOutlineCollection className="w-10 h-10 mx-auto mb-3 opacity-50" />
