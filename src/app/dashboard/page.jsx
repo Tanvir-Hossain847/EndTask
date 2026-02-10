@@ -14,6 +14,7 @@ import {
   HiOutlineShieldCheck,
   HiOutlineCog,
   HiOutlineLogout,
+  HiOutlineMenu,
 } from "react-icons/hi";
 
 export default function Dashboard() {
@@ -63,64 +64,86 @@ export default function Dashboard() {
   };
 
   return (
-    <div className="flex min-h-screen bg-black">
-      {/* Sidebar */}
-      <aside className="w-56 bg-base-100 border-r border-white/5 flex flex-col">
-        <div className="p-4 border-b border-white/5">
+    <div className="drawer lg:drawer-open min-h-screen bg-black">
+      <input id="dashboard-drawer" type="checkbox" className="drawer-toggle" />
+      
+      <div className="drawer-content flex flex-col">
+        {/* Mobile Header */}
+        <header className="lg:hidden flex items-center justify-between p-4 border-b border-white/5 bg-base-100">
           <span className="text-sm font-bold tracking-tight">
             END<span className="text-primary">TASK</span>
           </span>
-        </div>
+          <label htmlFor="dashboard-drawer" className="btn btn-ghost btn-sm drawer-button">
+            <HiOutlineMenu className="w-5 h-5" />
+          </label>
+        </header>
 
-        <nav className="flex-1 p-3">
-          <ul className="menu menu-sm gap-1">
-            {getSidebarItems().map((item, i) => (
-              <li key={i}>
-                <Link
-                  href={item.href}
-                  className={`flex items-center gap-2 text-xs ${item.active ? "bg-primary/10 text-primary" : "text-white/60 hover:text-white"}`}
-                >
-                  <item.icon className="w-4 h-4" />
-                  {item.label}
+        {/* Main Content */}
+        <main className="flex-1 p-4 md:p-6">
+          <div className="flex items-center justify-between mb-6">
+            <div>
+              <h1 className="text-lg font-semibold">Dashboard</h1>
+              <p className="text-xs text-white/40">Welcome back, {user.name || user.email?.split("@")[0]}</p>
+            </div>
+            <div className="badge badge-outline badge-sm text-primary border-primary/30">{user.role}</div>
+          </div>
+
+          {user.role === "ADMIN" && <AdminContent />}
+          {user.role === "BUYER" && <BuyerContent user={user} />}
+          {user.role === "SOLVER" && <SolverContent user={user} />}
+          {!["ADMIN", "BUYER", "SOLVER"].includes(user.role) && <SolverContent user={user} />}
+        </main>
+      </div>
+
+      {/* Sidebar / Drawer Side */}
+      <div className="drawer-side z-50">
+        <label htmlFor="dashboard-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
+        <aside className="w-64 lg:w-56 bg-base-100 border-r border-white/5 flex flex-col h-full">
+          <div className="p-4 border-b border-white/5 hidden lg:block">
+            <span className="text-sm font-bold tracking-tight">
+              END<span className="text-primary">TASK</span>
+            </span>
+          </div>
+
+          <nav className="flex-1 p-3">
+            <ul className="menu menu-sm gap-1">
+              {getSidebarItems().map((item, i) => (
+                <li key={i}>
+                  <Link
+                    href={item.href}
+                    onClick={() => {
+                      if (window.innerWidth < 1024) {
+                        document.getElementById("dashboard-drawer").checked = false;
+                      }
+                    }}
+                    className={`flex items-center gap-2 text-xs ${item.active ? "bg-primary/10 text-primary" : "text-white/60 hover:text-white"}`}
+                  >
+                    <item.icon className="w-4 h-4" />
+                    {item.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="p-3 border-t border-white/5">
+            <ul className="menu menu-sm gap-1">
+              <li>
+                <Link href="/profile" className="flex items-center gap-2 text-xs text-white/60 hover:text-white">
+                  <HiOutlineCog className="w-4 h-4" />
+                  Settings
                 </Link>
               </li>
-            ))}
-          </ul>
-        </nav>
-
-        <div className="p-3 border-t border-white/5">
-          <ul className="menu menu-sm gap-1">
-            <li>
-              <Link href="/profile" className="flex items-center gap-2 text-xs text-white/60 hover:text-white">
-                <HiOutlineCog className="w-4 h-4" />
-                Settings
-              </Link>
-            </li>
-            <li>
-              <button onClick={handleLogout} className="flex items-center gap-2 text-xs text-white/60 hover:text-white">
-                <HiOutlineLogout className="w-4 h-4" />
-                Logout
-              </button>
-            </li>
-          </ul>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 p-6">
-        <div className="flex items-center justify-between mb-6">
-          <div>
-            <h1 className="text-lg font-semibold">Dashboard</h1>
-            <p className="text-xs text-white/40">Welcome back, {user.name || user.email?.split("@")[0]}</p>
+              <li>
+                <button onClick={handleLogout} className="flex items-center gap-2 text-xs text-white/60 hover:text-white w-full">
+                  <HiOutlineLogout className="w-4 h-4" />
+                  Logout
+                </button>
+              </li>
+            </ul>
           </div>
-          <div className="badge badge-outline badge-sm text-primary border-primary/30">{user.role}</div>
-        </div>
-
-        {user.role === "ADMIN" && <AdminContent />}
-        {user.role === "BUYER" && <BuyerContent user={user} />}
-        {user.role === "SOLVER" && <SolverContent user={user} />}
-        {!["ADMIN", "BUYER", "SOLVER"].includes(user.role) && <SolverContent user={user} />}
-      </main>
+        </aside>
+      </div>
     </div>
   );
 }
@@ -150,12 +173,12 @@ function AdminContent() {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatCard label="Total Users" value={stats.users} />
         <StatCard label="Total Projects" value={stats.projects} />
         <StatCard label="Open Projects" value={stats.open} highlight />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <ActionCard title="User Management" desc="Manage users and roles" href="/admin/dashboard" />
         <ActionCard title="System Audit" desc="View activity logs" href="/admin/audit" />
       </div>
@@ -188,12 +211,12 @@ function BuyerContent({ user }) {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatCard label="My Projects" value={stats.total} />
         <StatCard label="Active" value={stats.active} />
         <StatCard label="Completed" value={stats.completed} highlight />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <ActionCard title="Post Project" desc="Create a new project" href="/projects/create" primary />
         <ActionCard title="My Listings" desc="Manage your projects" href="/projects/my-listings" />
       </div>
@@ -251,12 +274,12 @@ function SolverContent({ user }) {
 
   return (
     <div className="space-y-4">
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <StatCard label="Active Tasks" value={stats.active} />
         <StatCard label="Completed" value={stats.completed} />
         <StatCard label="Total Tasks" value={stats.total} highlight />
       </div>
-      <div className="grid grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <ActionCard title="Browse Projects" desc="Find new work" href="/projects/browse" primary />
         <ActionCard title="My Tasks" desc="View assigned tasks" href="/solver/my-tasks" />
       </div>
