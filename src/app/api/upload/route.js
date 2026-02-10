@@ -5,7 +5,9 @@ import { ObjectId } from "mongodb";
 
 // Configure Cloudinary
 if (process.env.CLOUDINARY_URL) {
-  // If CLOUDINARY_URL is present, it will be used automatically by the SDK
+  cloudinary.config({
+    cloudinary_url: process.env.CLOUDINARY_URL,
+  });
 } else {
   cloudinary.config({
     cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
