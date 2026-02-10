@@ -1,36 +1,104 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## EndTask
+* Project Introduction
 
-## Getting Started
+EndTask is a full-stack web application designed to manage real-world project execution in a structured, transparent, and scalable way. The platform focuses on turning loosely managed freelance or contract work into an organized workflow where tasks, submissions, and approvals are handled within a single system.
 
-First, run the development server:
+The application allows teams or project owners to assign work, receive structured submissions such as ZIP files, track progress, and ensure accountability through clearly defined roles and backend-controlled workflows. Instead of relying on informal tools like chat messages or shared drives, EndTask centralizes the entire project lifecycle into a reliable, performance-driven web platform.
 
-```bash
+The project is built with a strong emphasis on UI/UX, frontend performance, secure backend handling, and production-ready deployment practices.
+
+## Tech Stack
+* Frontend
+
+Next.js (App Router) – Full-stack React framework
+
+React 19 – Component-based UI development
+
+Tailwind CSS + DaisyUI – Utility-first styling and UI components
+
+Framer Motion & GSAP – Animations and smooth interactions
+
+Lenis – Smooth scrolling experience
+
+React Icons – Iconography
+
+
+* Backend
+
+Next.js API Routes – Server-side logic
+
+MongoDB – NoSQL database for scalable data storage
+
+Firebase – Authentication and session management
+
+Context API – Global state and authentication handling
+
+
+* File Storage
+
+Cloudinary – Secure cloud storage for ZIP and raw file uploads
+
+
+* Other Tools
+
+ESLint – Code quality and linting
+
+PostCSS – CSS processing
+
+
+## Key Features
+
+Role-based project and task management
+
+Secure file (ZIP) uploads using Cloudinary
+
+Backend-validated workflows
+
+Authentication and protected routes
+
+Scalable MongoDB schema design
+
+Responsive and performance-optimized UI
+
+## Installation Instructions
+
+Prerequisites
+
+Make sure you have the following installed:
+
+Node.js (v18 or later recommended)
+
+npm or yarn
+
+MongoDB (local or cloud, e.g. MongoDB Atlas)
+
+1. Clone the Repository
+git clone https://github.com/your-username/EndTask.git
+cd EndTask
+
+2. Install Dependencies
+npm install
+
+or
+
+yarn install
+
+3. Environment Variables
+cp .env.example 
+
+
+4. Run the Development Server
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+5. Production Build
+npm run build
+npm start
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Deployment
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+EndTask is optimized for deployment on Vercel.
+Make sure all environment variables are added in the Vercel dashboard before deploying.
 
-## Learn More
+Purpose of the Project
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project was built to demonstrate real-world full-stack development skills, including frontend architecture, backend validation, database schema design, authentication, file handling, and production deployment. It reflects how modern web applications are built to solve real operational problems rather than acting as static demo projects.
